@@ -1,0 +1,88 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2a8e7d;
+    /* Light gray background */
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    height: 100vh;
+    /* Full viewport height */
+}
+
+.container {
+    background-color: rgb(18, 2, 2);
+    /* White background for the form */
+    padding: 20px;
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    text-align: center;
+    /* Center text */
+    width: 90%;
+    /* Responsive width */
+    max-width: 400px;
+    /* Maximum width */
+}
+
+h1 {
+    color: #9c1a1a;
+    /* Dark gray color for the heading */
+    /* Space below the heading */
+    text-align: center;
+}
+
+form {
+    display: flex;
+    /* Use flexbox for layout */
+    flex-direction: column;
+    /* Stack elements vertically */
+    text-align: center;
+}
+
+input[type="file"],
+input[type="color"],
+input[type="text"],
+button {
+    width: 100%;
+    /* Full width */
+    padding: 10px;
+    /* Padding for input fields */
+    margin: 10px 0;
+    /* Space between elements */
+    border: 1px solid #ccc;
+    /* Light gray border */
+    border-radius: 4px;
+    /* Rounded corners */
+}
+
+button {
+    background-color: #28a745;
+    /* Green background for the button */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+button:hover {
+    background-color: #218838;
+    /* Darker green on hover */
+}
+
+img {
+    margin-top: 20px;
+    /* Space above the image */
+    max-width: 100%;
+    /* Responsive image */
+    height: auto;
+    /* Maintain aspect ratio */
+    font-size: large;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Meme Generator</h1>
+    <form action="/generate" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <p>Please Enter your text you want in the photo.</p>
+        <input type="text" name="text" placeholder="Enter your text" required>
+        <p>Please Choose the Text Color:</p>
+        <input type="color" name="color" value="#FFFFFF" required>
+        <label for="position">Select text position:</label>
+        <select name="position" id="position" required>
+            <option value="top">Top</option>
+            <option value="bottom">Bottom</option>
+        </select>
+        <button type="submit">Generate Meme</button>
+    </form>
+    {% if meme_image %}
+    <h2>Your Meme:</h2>
+    <img src="{{ meme_image }}" alt="Generated Meme"> {% endif %}
+</body>
+
+</html>
