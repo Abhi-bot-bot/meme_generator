@@ -34,7 +34,7 @@ def generate():
 
 def create_meme(image_path, text, color, position):
     image = Image.open(image_path)
-    image = image.resize((300, 300))  # Resize to meme size (500x500)
+    image = image.resize((300, 300))  # Resize to meme size (300x300) or adjust as needed
     draw = ImageDraw.Draw(image)
 
     # Load a font
@@ -47,16 +47,21 @@ def create_meme(image_path, text, color, position):
     max_width = image.size[0] - 20  # Leave some padding on the sides
     wrapped_text = wrap_text(draw, text, font, max_width)
 
+    # Calculate the height of the wrapped text
+    total_text_height = sum(draw.textbbox((0, 0), line, font=font)[3] - draw.textbbox((0, 0), line, font=font)[1] for line in wrapped_text)
+
     # Draw text based on selected position
     if position == "top":
         y_text = 10  # Start drawing text 10 pixels from the top
     else:  # position == "bottom"
-        y_text = image.size[1] - (10 + sum(draw.textsize(line, font=font)[1] for line in wrapped_text))  # Start drawing text 10 pixels from the bottom
+        y_text = image.size[1] - (10 + total_text_height)  # Start drawing text 10 pixels from the bottom
 
     for line in wrapped_text:
-        text_width, _ = draw.textsize(line, font=font)
+        # Calculate the width of each line
+        left, top, right, bottom = draw.textbbox((0, 0), line, font=font)
+        text_width = right - left
         draw.text(((image.size[0] - text_width) / 2, y_text), line, fill=color, font=font)
-        y_text += draw.textsize(line, font=font)[1]  # Move down for the next line
+        y_text += bottom - top  # Move down for the next line
 
     return image
 
@@ -69,7 +74,9 @@ def wrap_text(draw, text, font, max_width):
     for word in words:
         # Check if adding the next word would exceed the max width
         test_line = f"{current_line} {word}".strip()
-        if draw.textsize(test_line, font=font)[0] <= max_width:
+        left, top, right, bottom = draw.textbbox((0, 0), test_line, font=font)
+        text_width = right - left
+        if text_width <= max_width:
             current_line = test_line
         else:
             # If it exceeds, add the current line to lines and start a new line
@@ -84,4 +91,5 @@ def wrap_text(draw, text, font, max_width):
     return lines
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
